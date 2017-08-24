@@ -46,9 +46,9 @@ class BrainDQN:
 		checkpoint = tf.train.get_checkpoint_state("saved_networks")
 		if checkpoint and checkpoint.model_checkpoint_path:
 				self.saver.restore(self.session, checkpoint.model_checkpoint_path)
-				print "Successfully loaded:", checkpoint.model_checkpoint_path
+				print("Successfully loaded:", checkpoint.model_checkpoint_path)
 		else:
-				print "Could not find old network weights"
+				print("Could not find old network weights")
 
 
 	def createQNetwork(self):
@@ -94,7 +94,7 @@ class BrainDQN:
 	def createTrainingMethod(self):
 		self.actionInput = tf.placeholder("float",[None,self.actions])
 		self.yInput = tf.placeholder("float", [None]) 
-		Q_Action = tf.reduce_sum(tf.mul(self.QValue, self.actionInput), reduction_indices = 1)
+		Q_Action = tf.reduce_sum(tf.multiply(self.QValue, self.actionInput), reduction_indices = 1)
 		self.cost = tf.reduce_mean(tf.square(self.yInput - Q_Action))
 		self.trainStep = tf.train.AdamOptimizer(1e-6).minimize(self.cost)
 
@@ -152,9 +152,9 @@ class BrainDQN:
 		else:
 			state = "train"
 
-		print "TIMESTEP", self.timeStep, "/ STATE", state, \
-            "/ EPSILON", self.epsilon
-
+		print("TIMESTEP", self.timeStep, "/ STATE", state, \
+            "/ EPSILON", self.epsilon)
+		
 		self.currentState = newState
 		self.timeStep += 1
 
